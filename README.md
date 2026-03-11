@@ -16,10 +16,12 @@ Auth, email, and a dashboard shell are already wired up — just describe what y
 1. **Clone and install**
 
    ```bash
-   git clone <your-repo-url>
-   cd <your-repo>
+   git clone https://github.com/la-agency/gc-convex-starter.git my-project
+   cd my-project
    pnpm install
    ```
+
+   Replace `my-project` with whatever you want to name your project. Git creates the folder and clones into it.
 
 2. **Set up Convex**
 
