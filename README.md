@@ -9,7 +9,6 @@ Auth, email, and a dashboard shell are already wired up — just describe what y
 - [Node.js](https://nodejs.org) (v18+)
 - [pnpm](https://pnpm.io)
 - A [Convex](https://convex.dev) account (free)
-- A [Resend](https://resend.com) account (free)
 
 ## Setup
 
@@ -31,14 +30,7 @@ Auth, email, and a dashboard shell are already wired up — just describe what y
 
    This creates your Convex project and generates `.env.local` with `CONVEX_DEPLOYMENT`, `NEXT_PUBLIC_CONVEX_URL`, and `NEXT_PUBLIC_CONVEX_SITE_URL`.
 
-3. **Set Convex server environment variables**
-
-   ```bash
-   npx convex env set AUTH_RESEND_KEY <your-resend-api-key>
-   npx convex env set FROM_EMAIL "YourApp <hello@yourdomain.com>"
-   ```
-
-4. **Run**
+3. **Run**
 
    ```bash
    pnpm dev
@@ -46,13 +38,36 @@ Auth, email, and a dashboard shell are already wired up — just describe what y
 
    This starts both the Next.js dev server and Convex dev server together.
 
-5. **Open** [http://localhost:3000](http://localhost:3000) and sign up.
+4. **Open** [http://localhost:3000](http://localhost:3000) and sign up.
+
+Sign up and sign in work out of the box. Password reset requires email — see below.
+
+## Password reset (optional)
+
+Password reset sends a one-time code via email using [Resend](https://resend.com). If you skip this step, everything else still works — users just won't be able to reset a forgotten password.
+
+1. **Create a free Resend account** at [resend.com](https://resend.com).
+
+2. **Get your API key** — after signing up, go to [resend.com/api-keys](https://resend.com/api-keys) and create a new key.
+
+3. **Set up a sending domain** — go to [resend.com/domains](https://resend.com/domains) and add your domain (e.g. `yourdomain.com`). Resend will give you DNS records to add. Once verified, you can send from any address at that domain.
+
+   > If you just want to test locally before setting up a domain, Resend lets you send to your own email using their default `onboarding@resend.dev` sender.
+
+4. **Set the environment variables** in Convex:
+
+   ```bash
+   npx convex env set RESEND_API_KEY re_xxxxxxxxxx
+   npx convex env set FROM_EMAIL "My App <hello@yourdomain.com>"
+   ```
+
+   `FROM_EMAIL` must use an email address at a domain you've verified in Resend. The format is `Display Name <email@yourdomain.com>`.
 
 ## What's included
 
-- Email/password auth (sign up, sign in, password reset)
+- Email/password auth (sign up, sign in)
+- Password reset via email (requires Resend — see above)
 - Protected dashboard with sidebar navigation
-- Resend integration for password reset emails
 - Environment variable validation (t3-env)
 - Tailwind CSS v4 + shadcn/ui components
 
