@@ -24,26 +24,19 @@ Auth, email, and a dashboard shell are already wired up — just describe what y
    npx convex dev --once
   ```
    This creates your Convex project and generates `.env.local` with `CONVEX_DEPLOYMENT`, `NEXT_PUBLIC_CONVEX_URL`, and `NEXT_PUBLIC_CONVEX_SITE_URL`.
-3. **Run**
+3. **Set up auth**
+  ```bash
+   npx @convex-dev/auth
+  ```
+   Auth configuration needs to be initialized for each Convex deployment. This uses the `CONVEX_DEPLOYMENT` from `.env.local` created in the previous step.
+4. **Run**
   ```bash
    pnpm dev
   ```
    This starts both the Next.js dev server and Convex dev server together.
-4. **Open** [http://localhost:3000](http://localhost:3000) and sign up.
+5. **Open** [http://localhost:3000](http://localhost:3000) and sign up.
 
 Sign up and sign in work out of the box. Password reset requires email — see below.
-
-## Set Up Auth
-
-Auth configuration needs to be initialized for each Convex deployment. Run these from the project root:
-
-```bash
-# Dev deployment (uses CONVEX_DEPLOYMENT from .env.local)
-npx @convex-dev/auth
-
-# Production deployment (requires CONVEX_DEPLOY_KEY)
-npx @convex-dev/auth --prod
-```
 
 ## Deploy to Vercel
 
@@ -65,7 +58,13 @@ The `build` script already includes `npx convex deploy`, so Vercel just needs th
 
    `CONVEX_DEPLOY_KEY` must be set separately for Production and Preview environments with different values. This ensures production pushes deploy to your production Convex deployment, while preview branches deploy to isolated preview deployments.
 
-4. **Deploy** — click Deploy in Vercel, or just push to your main branch. Vercel will automatically deploy both Convex and your site on every push.
+4. **Initialize auth for production**
+   ```bash
+   npx @convex-dev/auth --prod
+   ```
+   This requires `CONVEX_DEPLOY_KEY` to be set as an environment variable (or passed via flag).
+
+5. **Deploy** — click Deploy in Vercel, or just push to your main branch. Vercel will automatically deploy both Convex and your site on every push.
 
 ## Password reset (optional)
 
