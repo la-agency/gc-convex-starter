@@ -56,16 +56,22 @@ The `build` script already includes `npx convex deploy`, so Vercel just needs th
    ```
    This requires `CONVEX_DEPLOY_KEY` to be set as an environment variable (use the production deploy key from step 2). It will prompt for a `SITE_URL` — enter your Vercel URL (e.g. `https://your-app.vercel.app`).
 
-5. **Create a new project at [vercel.com/new](https://vercel.com/new)**, linking it to your GitHub repo. On the new project form, add these environment variables:
+5. **Generate and set auth keys** — these keys secure the auth for the app.
+   ```bash
+   npx tsx generate-keys.ts
+   ```
+   Copy the output, then go to the [Convex dashboard](https://dashboard.convex.dev/). Click the three dots on your project and click **Settings**. Scroll down to **Default Environment Variables** and click **Add**, then paste the output from the terminal into the input. This creates two variables: `JWT_PRIVATE_KEY` and `JWKS`.
+
+6. **Create a new project at [vercel.com/new](https://vercel.com/new)**, linking it to your GitHub repo. On the new project form, add these environment variables:
 
    | Variable | Value |
    |---|---|
    | `CONVEX_DEPLOY_KEY` | Production deploy key from step 2 |
    | `NEXT_PUBLIC_CONVEX_SITE_URL` | Your `.convex.site` URL from step 3 |
 
-6. **Deploy** — click Deploy. Vercel will automatically deploy both Convex and your site.
+7. **Deploy** — click Deploy. Vercel will automatically deploy both Convex and your site.
 
-7. **Set up the preview deploy key** — after the first deploy, go to your Vercel project's Settings > Environment Variables. Uncheck *Preview* and *Development* on the existing `CONVEX_DEPLOY_KEY` so it only applies to Production. Then create a new `CONVEX_DEPLOY_KEY` entry with the preview deploy key from step 2, and set it to *Preview* only. This ensures preview branches deploy to isolated Convex preview deployments.
+8. **Set up the preview deploy key** — after the first deploy, go to your Vercel project's Settings > Environment Variables. Uncheck *Preview* and *Development* on the existing `CONVEX_DEPLOY_KEY` so it only applies to Production. Then create a new `CONVEX_DEPLOY_KEY` entry with the preview deploy key from step 2, and set it to *Preview* only. This ensures preview branches deploy to isolated Convex preview deployments.
 
 ## Password reset (optional)
 
