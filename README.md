@@ -28,7 +28,7 @@ Auth, email, and a dashboard shell are already wired up — just describe what y
   ```bash
    npx @convex-dev/auth
   ```
-   Auth configuration needs to be initialized for each Convex deployment. This uses the `CONVEX_DEPLOYMENT` from `.env.local` created in the previous step.
+   Auth configuration needs to be initialized for each Convex deployment. This uses the `CONVEX_DEPLOYMENT` from `.env.local` created in the previous step. It will prompt for a `SITE_URL` — `http://localhost:3000` is fine, just accept it.
 4. **Run**
   ```bash
    pnpm dev
@@ -42,29 +42,30 @@ Sign up and sign in work out of the box. Password reset requires email — see b
 
 The `build` script already includes `npx convex deploy`, so Vercel just needs the right environment variables.
 
-1. **Push your repo to GitHub** and create a new project at [vercel.com/new](https://vercel.com/new), linking it to your repo.
+1. **Push your repo to GitHub.**
 
-2. **Generate deploy keys** — in the [Convex dashboard](https://dashboard.convex.dev), go to your project's Settings:
-   - **Production deploy key** — found under *Production Deploy Key* in your production deployment settings.
+2. **Generate deploy keys** — in the [Convex dashboard](https://dashboard.convex.dev), go to your project's Settings. Do this before creating the Vercel project so you have the keys ready.
+   - **Production deploy key** — under *Production Deploy Keys*, click *Deployment Settings*. Create a new key and name it **Vercel**.
    - **Preview deploy key** — found under *Preview Deploy Keys* in your project settings.
 
-3. **Add environment variables in Vercel** (Settings > Environment Variables):
-
-   | Variable | Value | Environment |
-   |---|---|---|
-   | `CONVEX_DEPLOY_KEY` | Production deploy key | Production only |
-   | `CONVEX_DEPLOY_KEY` | Preview deploy key | Preview only |
-   | `NEXT_PUBLIC_CONVEX_SITE_URL` | Your production `.convex.site` URL (shown in the Convex dashboard under URL & Deploy Key) | Production |
-
-   `CONVEX_DEPLOY_KEY` must be set separately for Production and Preview environments with different values. This ensures production pushes deploy to your production Convex deployment, while preview branches deploy to isolated preview deployments.
+3. **Get your production site URL** — in the Convex dashboard, under *Production Deploy Keys*, click *Deployment Settings*. Your site URL looks like `some-url-like-this.convex.site` (ends in `.site`).
 
 4. **Initialize auth for production**
    ```bash
    npx @convex-dev/auth --prod
    ```
-   This requires `CONVEX_DEPLOY_KEY` to be set as an environment variable (or passed via flag).
+   This requires `CONVEX_DEPLOY_KEY` to be set as an environment variable (use the production deploy key from step 2). It will prompt for a `SITE_URL` — enter your Vercel URL (e.g. `https://your-app.vercel.app`).
 
-5. **Deploy** — click Deploy in Vercel, or just push to your main branch. Vercel will automatically deploy both Convex and your site on every push.
+5. **Create a new project at [vercel.com/new](https://vercel.com/new)**, linking it to your GitHub repo. On the new project form, add these environment variables:
+
+   | Variable | Value |
+   |---|---|
+   | `CONVEX_DEPLOY_KEY` | Production deploy key from step 2 |
+   | `NEXT_PUBLIC_CONVEX_SITE_URL` | Your `.convex.site` URL from step 3 |
+
+6. **Deploy** — click Deploy. Vercel will automatically deploy both Convex and your site.
+
+7. **Set up the preview deploy key** — after the first deploy, go to your Vercel project's Settings > Environment Variables. Uncheck *Preview* and *Development* on the existing `CONVEX_DEPLOY_KEY` so it only applies to Production. Then create a new `CONVEX_DEPLOY_KEY` entry with the preview deploy key from step 2, and set it to *Preview* only. This ensures preview branches deploy to isolated Convex preview deployments.
 
 ## Password reset (optional)
 
