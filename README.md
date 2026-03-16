@@ -33,20 +33,37 @@ Auth, email, and a dashboard shell are already wired up — just describe what y
 
 Sign up and sign in work out of the box. Password reset requires email — see below.
 
+## Set Up Auth
+
+Auth configuration needs to be initialized for each Convex deployment. Run these from the project root:
+
+```bash
+# Dev deployment (uses CONVEX_DEPLOYMENT from .env.local)
+npx @convex-dev/auth
+
+# Production deployment (requires CONVEX_DEPLOY_KEY)
+npx @convex-dev/auth --prod
+```
+
 ## Deploy to Vercel
 
 The `build` script already includes `npx convex deploy`, so Vercel just needs the right environment variables.
 
 1. **Push your repo to GitHub** and create a new project at [vercel.com/new](https://vercel.com/new), linking it to your repo.
 
-2. **Get your production deploy key** — in the [Convex dashboard](https://dashboard.convex.dev), go to your project's Settings and click *Generate Production Deploy Key*. Copy it.
+2. **Generate deploy keys** — in the [Convex dashboard](https://dashboard.convex.dev), go to your project's Settings:
+   - **Production deploy key** — found under *Production Deploy Key* in your production deployment settings.
+   - **Preview deploy key** — found under *Preview Deploy Keys* in your project settings.
 
 3. **Add environment variables in Vercel** (Settings > Environment Variables):
 
    | Variable | Value | Environment |
    |---|---|---|
-   | `CONVEX_DEPLOY_KEY` | The deploy key from step 2 | Production only |
+   | `CONVEX_DEPLOY_KEY` | Production deploy key | Production only |
+   | `CONVEX_DEPLOY_KEY` | Preview deploy key | Preview only |
    | `NEXT_PUBLIC_CONVEX_SITE_URL` | Your production `.convex.site` URL (shown in the Convex dashboard under URL & Deploy Key) | Production |
+
+   `CONVEX_DEPLOY_KEY` must be set separately for Production and Preview environments with different values. This ensures production pushes deploy to your production Convex deployment, while preview branches deploy to isolated preview deployments.
 
 4. **Deploy** — click Deploy in Vercel, or just push to your main branch. Vercel will automatically deploy both Convex and your site on every push.
 

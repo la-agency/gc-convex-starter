@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently --names convex,next --prefix-colors blue,green \"npx convex dev\" \"next dev\"",
-    "build": "npx convex deploy --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL --cmd 'next build'",
+    "build": "npx convex deploy --cmd 'next build'",
     "start": "next start",
     "lint": "eslint"
   },
