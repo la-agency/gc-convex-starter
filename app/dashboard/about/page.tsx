@@ -3,7 +3,13 @@
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 
 const STREAMING_AI_PROMPT = `Add streaming AI output to this app using the Vercel AI SDK and OpenAI.
 
@@ -109,189 +115,196 @@ const WORKSPACE_PROMPT = `Add workspaces and team members to this app.
 6. Dashboard is scoped to the selected workspace`;
 
 interface SetupStep {
-  label: string;
-  command?: string;
-  href?: string;
-  linkText?: string;
+	label: string;
+	command?: string;
+	href?: string;
+	linkText?: string;
 }
 
 function CopyablePrompt({
-  title,
-  description,
-  setup,
-  prompt,
+	title,
+	description,
+	setup,
+	prompt,
 }: {
-  title: string;
-  description: string;
-  setup?: SetupStep[];
-  prompt: string;
+	title: string;
+	description: string;
+	setup?: SetupStep[];
+	prompt: string;
 }) {
-  const [copied, setCopied] = useState(false);
+	const [copied, setCopied] = useState(false);
 
-  function handleCopy() {
-    navigator.clipboard.writeText(prompt).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
+	function handleCopy() {
+		navigator.clipboard.writeText(prompt).then(() => {
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		});
+	}
 
-  return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-1">
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-          </div>
-          <Button variant="outline" size="sm" onClick={handleCopy} className="shrink-0">
-            {copied ? (
-              <>
-                <Check className="size-3.5" />
-                Copied
-              </>
-            ) : (
-              <>
-                <Copy className="size-3.5" />
-                Copy
-              </>
-            )}
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {setup && setup.length > 0 && (
-          <div className="space-y-3">
-            <p className="text-sm font-medium">Before you start</p>
-            <ol className="list-inside list-decimal space-y-2 text-sm text-muted-foreground">
-              {setup.map((step) => (
-                <li key={step.label}>
-                  {step.label}
-                  {step.href && (
-                    <>
-                      {" "}
-                      <a
-                        href={step.href}
-                        className="font-medium text-foreground underline-offset-4 hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {step.linkText ?? step.href}
-                      </a>
-                    </>
-                  )}
-                  {step.command && (
-                    <code className="ml-1.5 rounded bg-muted px-1.5 py-0.5 text-xs">
-                      {step.command}
-                    </code>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </div>
-        )}
-        <pre className="max-h-96 overflow-auto rounded-lg bg-muted p-4 text-sm leading-relaxed whitespace-pre-wrap">
-          {prompt}
-        </pre>
-      </CardContent>
-    </Card>
-  );
+	return (
+		<Card>
+			<CardHeader>
+				<div className="flex items-start justify-between gap-4">
+					<div className="space-y-1">
+						<CardTitle>{title}</CardTitle>
+						<CardDescription>{description}</CardDescription>
+					</div>
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={handleCopy}
+						className="shrink-0"
+					>
+						{copied ? (
+							<>
+								<Check className="size-3.5" />
+								Copied
+							</>
+						) : (
+							<>
+								<Copy className="size-3.5" />
+								Copy
+							</>
+						)}
+					</Button>
+				</div>
+			</CardHeader>
+			<CardContent className="space-y-4">
+				{setup && setup.length > 0 && (
+					<div className="space-y-3">
+						<p className="text-sm font-medium">Before you start</p>
+						<ol className="list-inside list-decimal space-y-2 text-sm text-muted-foreground">
+							{setup.map((step) => (
+								<li key={step.label}>
+									{step.label}
+									{step.href && (
+										<>
+											{" "}
+											<a
+												href={step.href}
+												className="font-medium text-foreground underline-offset-4 hover:underline"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{step.linkText ?? step.href}
+											</a>
+										</>
+									)}
+									{step.command && (
+										<code className="ml-1.5 rounded bg-muted px-1.5 py-0.5 text-xs">
+											{step.command}
+										</code>
+									)}
+								</li>
+							))}
+						</ol>
+					</div>
+				)}
+				<pre className="max-h-96 overflow-auto rounded-lg bg-muted p-4 text-sm leading-relaxed whitespace-pre-wrap">
+					{prompt}
+				</pre>
+			</CardContent>
+		</Card>
+	);
 }
 
 export default function AboutPage() {
-  return (
-    <div className="mx-auto max-w-2xl space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-2xl font-semibold tracking-tight">About this project</h1>
-        <div className="space-y-3 text-muted-foreground">
-          <p>
-            This is a starter with everything you need to ship something. Authentication
-            (email/password, password reset), a dashboard shell, and transactional email are already
-            wired up — just start building.
-          </p>
-          <p>
-            The backend is powered by{" "}
-            <a
-              href="https://convex.dev"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Convex
-            </a>{" "}
-            — a real-time database and backend you can control entirely by describing what you want
-            to your AI assistant. The frontend uses{" "}
-            <a
-              href="https://nextjs.org"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Next.js
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://ui.shadcn.com"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              shadcn/ui
-            </a>
-            .
-          </p>
-          <p>
-            Everything is flexible — you can prompt any layout, experience, or feature set that you
-            want. This is just a good starting point. Below are some common features with
-            ready-to-use prompts to get you going.
-          </p>
-        </div>
-      </div>
+	return (
+		<div className="mx-auto max-w-2xl space-y-8">
+			<div className="space-y-4">
+				<h1 className="text-2xl font-semibold tracking-tight">
+					About this project
+				</h1>
+				<div className="space-y-3 text-muted-foreground">
+					<p>
+						This is a starter with everything you need to ship something.
+						Authentication (email/password, password reset), a dashboard shell,
+						and transactional email are already wired up — just start building.
+					</p>
+					<p>
+						The backend is powered by{" "}
+						<a
+							href="https://convex.dev"
+							className="font-medium text-foreground underline-offset-4 hover:underline"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Convex
+						</a>{" "}
+						— a real-time database and backend you can control entirely by
+						describing what you want to your AI assistant. The frontend uses{" "}
+						<a
+							href="https://nextjs.org"
+							className="font-medium text-foreground underline-offset-4 hover:underline"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Next.js
+						</a>{" "}
+						and{" "}
+						<a
+							href="https://ui.shadcn.com"
+							className="font-medium text-foreground underline-offset-4 hover:underline"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							shadcn/ui
+						</a>
+						.
+					</p>
+					<p>
+						Everything is flexible — you can prompt any layout, experience, or
+						feature set that you want. This is just a good starting point. Below
+						are some common features with ready-to-use prompts to get you going.
+					</p>
+				</div>
+			</div>
 
-      <CopyablePrompt
-        title="Streaming AI Output"
-        description="Add AI-generated content that streams in real time using the Vercel AI SDK and OpenAI."
-        setup={[
-          {
-            label: "Get an OpenAI API key from",
-            href: "https://platform.openai.com/api-keys",
-            linkText: "platform.openai.com",
-          },
-          {
-            label: "Add it to your Convex environment:",
-            command: "npx convex env set OPENAI_API_KEY <your-key>",
-          },
-        ]}
-        prompt={STREAMING_AI_PROMPT}
-      />
+			<CopyablePrompt
+				title="Streaming AI Output"
+				description="Add AI-generated content that streams in real time using the Vercel AI SDK and OpenAI."
+				setup={[
+					{
+						label: "Get an OpenAI API key from",
+						href: "https://platform.openai.com/api-keys",
+						linkText: "platform.openai.com",
+					},
+					{
+						label: "Add it to your Convex environment:",
+						command: "npx convex env set OPENAI_API_KEY <your-key>",
+					},
+				]}
+				prompt={STREAMING_AI_PROMPT}
+			/>
 
-      <CopyablePrompt
-        title="Chat Interface"
-        description="A conversational chat UI with streaming AI responses, message history, and auto-scroll."
-        setup={[
-          {
-            label: "Get an OpenAI API key from",
-            href: "https://platform.openai.com/api-keys",
-            linkText: "platform.openai.com",
-          },
-          {
-            label: "Add it to your Convex environment:",
-            command: "npx convex env set OPENAI_API_KEY <your-key>",
-          },
-        ]}
-        prompt={CHAT_PROMPT}
-      />
+			<CopyablePrompt
+				title="Chat Interface"
+				description="A conversational chat UI with streaming AI responses, message history, and auto-scroll."
+				setup={[
+					{
+						label: "Get an OpenAI API key from",
+						href: "https://platform.openai.com/api-keys",
+						linkText: "platform.openai.com",
+					},
+					{
+						label: "Add it to your Convex environment:",
+						command: "npx convex env set OPENAI_API_KEY <your-key>",
+					},
+				]}
+				prompt={CHAT_PROMPT}
+			/>
 
-      <CopyablePrompt
-        title="Workspaces & Team Members"
-        description="Multi-tenant workspaces where users can create teams and invite members by email."
-        prompt={WORKSPACE_PROMPT}
-      />
+			<CopyablePrompt
+				title="Workspaces & Team Members"
+				description="Multi-tenant workspaces where users can create teams and invite members by email."
+				prompt={WORKSPACE_PROMPT}
+			/>
 
-      <CopyablePrompt
-        title="Kids App with Families"
-        description="An example of how easily you can retheme the app and rethink the UX for a different audience."
-        prompt={KIDS_APP_PROMPT}
-      />
-    </div>
-  );
+			<CopyablePrompt
+				title="Kids App with Families"
+				description="An example of how easily you can retheme the app and rethink the UX for a different audience."
+				prompt={KIDS_APP_PROMPT}
+			/>
+		</div>
+	);
 }
