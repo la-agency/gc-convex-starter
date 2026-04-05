@@ -4,13 +4,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -36,7 +30,7 @@ export function AuthForm({ flow }: AuthFormProps) {
         setError(
           isSignIn
             ? "Could not sign in. Check your email and password."
-            : "Could not sign up. Try a different email or stronger password."
+            : "Could not sign up. Try a different email or stronger password.",
         );
       })
       .finally(() => setLoading(false));
@@ -81,9 +75,7 @@ export function AuthForm({ flow }: AuthFormProps) {
               />
             </div>
 
-            {error && (
-              <p className="text-sm text-destructive">{error}</p>
-            )}
+            {error && <p className="text-sm text-destructive">{error}</p>}
 
             <Button type="submit" size="lg" disabled={loading}>
               {loading ? "Loading..." : isSignIn ? "Sign in" : "Sign up"}
@@ -91,9 +83,7 @@ export function AuthForm({ flow }: AuthFormProps) {
 
             <div className="grid gap-1 text-center text-sm text-muted-foreground">
               <p>
-                {isSignIn
-                  ? "Don't have an account?"
-                  : "Already have an account?"}{" "}
+                {isSignIn ? "Don't have an account?" : "Already have an account?"}{" "}
                 <Link
                   href={isSignIn ? "/signup" : "/signin"}
                   className="font-medium text-foreground underline-offset-4 hover:underline"

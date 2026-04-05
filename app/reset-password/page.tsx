@@ -4,13 +4,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -47,9 +41,7 @@ export default function ResetPasswordPage() {
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle className="text-xl">Reset your password</CardTitle>
-            <CardDescription>
-              Enter your email and we&apos;ll send you a reset code
-            </CardDescription>
+            <CardDescription>Enter your email and we&apos;ll send you a reset code</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleRequestCode} className="grid gap-4">
@@ -66,9 +58,7 @@ export default function ResetPasswordPage() {
               </div>
               <input name="flow" type="hidden" value="reset" />
 
-              {error && (
-                <p className="text-sm text-destructive">{error}</p>
-              )}
+              {error && <p className="text-sm text-destructive">{error}</p>}
 
               <Button type="submit" size="lg" disabled={loading}>
                 {loading ? "Sending..." : "Send reset code"}
@@ -95,9 +85,7 @@ export default function ResetPasswordPage() {
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-xl">Enter new password</CardTitle>
-          <CardDescription>
-            We sent a code to {step.email}
-          </CardDescription>
+          <CardDescription>We sent a code to {step.email}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleResetPassword} className="grid gap-4">
@@ -127,9 +115,7 @@ export default function ResetPasswordPage() {
             <input name="email" type="hidden" value={step.email} />
             <input name="flow" type="hidden" value="reset-verification" />
 
-            {error && (
-              <p className="text-sm text-destructive">{error}</p>
-            )}
+            {error && <p className="text-sm text-destructive">{error}</p>}
 
             <Button type="submit" size="lg" disabled={loading}>
               {loading ? "Resetting..." : "Reset password"}

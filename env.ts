@@ -3,9 +3,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   client: {
-    NEXT_PUBLIC_CONVEX_URL: z
-      .string()
-      .url("Run `npx convex dev` to set up your Convex project"),
+    NEXT_PUBLIC_CONVEX_URL: z.string().url("Run `npx convex dev` to set up your Convex project"),
     NEXT_PUBLIC_CONVEX_SITE_URL: z
       .string()
       .url("Run `npx convex dev` to set up your Convex project"),

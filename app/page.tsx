@@ -1,8 +1,8 @@
 "use client";
 
+import { useConvexAuth } from "convex/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useConvexAuth } from "convex/react";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 

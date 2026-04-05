@@ -1,24 +1,24 @@
 "use client";
 
+import { Home, Info } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Info } from "lucide-react";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import type { ReactNode } from "react";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
+  SidebarInset,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserMenu } from "@/components/user-menu";
-import { ReactNode } from "react";
 
 const navItems = [
   { title: "Home", href: "/dashboard", icon: Home },
@@ -33,9 +33,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <SidebarProvider>
         <Sidebar>
           <SidebarHeader className="px-4 py-3">
-            <span className="text-sm font-semibold tracking-tight">
-              GroupChat Convex Starter
-            </span>
+            <span className="text-sm font-semibold tracking-tight">GroupChat Convex Starter</span>
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>

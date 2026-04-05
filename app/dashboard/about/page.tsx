@@ -1,15 +1,9 @@
 "use client";
 
+import { Check, Copy } from "lucide-react";
 import { useState } from "react";
-import { Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const STREAMING_AI_PROMPT = `Add streaming AI output to this app using the Vercel AI SDK and OpenAI.
 
@@ -149,12 +143,7 @@ function CopyablePrompt({
             <CardTitle>{title}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopy}
-            className="shrink-0"
-          >
+          <Button variant="outline" size="sm" onClick={handleCopy} className="shrink-0">
             {copied ? (
               <>
                 <Check className="size-3.5" />
@@ -212,14 +201,12 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <div className="space-y-4">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          About this project
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tight">About this project</h1>
         <div className="space-y-3 text-muted-foreground">
           <p>
-            This is a starter with everything you need to ship something.
-            Authentication (email/password, password reset), a dashboard shell,
-            and transactional email are already wired up — just start building.
+            This is a starter with everything you need to ship something. Authentication
+            (email/password, password reset), a dashboard shell, and transactional email are already
+            wired up — just start building.
           </p>
           <p>
             The backend is powered by{" "}
@@ -231,8 +218,8 @@ export default function AboutPage() {
             >
               Convex
             </a>{" "}
-            — a real-time database and backend you can control entirely by
-            describing what you want to your AI assistant. The frontend uses{" "}
+            — a real-time database and backend you can control entirely by describing what you want
+            to your AI assistant. The frontend uses{" "}
             <a
               href="https://nextjs.org"
               className="font-medium text-foreground underline-offset-4 hover:underline"
@@ -253,9 +240,9 @@ export default function AboutPage() {
             .
           </p>
           <p>
-            Everything is flexible — you can prompt any layout, experience, or
-            feature set that you want. This is just a good starting point. Below
-            are some common features with ready-to-use prompts to get you going.
+            Everything is flexible — you can prompt any layout, experience, or feature set that you
+            want. This is just a good starting point. Below are some common features with
+            ready-to-use prompts to get you going.
           </p>
         </div>
       </div>
